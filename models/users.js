@@ -20,6 +20,12 @@ const UserSchema = new Schema({
     unique: true,
     required: true,
   },
+  email: {
+    type: String,
+    allowNull: false,
+    unique: true,
+    required: true,
+  },
   password: {
     type: String,
     allowNull: false,

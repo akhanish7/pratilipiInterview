@@ -5,13 +5,9 @@
  */
 
 // * Importing packages
-const path = require('path');
 const express = require('express');
-const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const compression = require('compression');
-const helmet = require('helmet');
 const mongoose = require('mongoose');
 const app = express();
 
@@ -20,12 +16,29 @@ require('dotenv').config();
 
 let PORT = process.env.DEV_APP_PORT;
 
-app.use(bodyParser.urlencoded({ extended: false }));
+var corsOptions = {
+  origin: 'http://localhost:7777',
+};
+
+app.use(cors(corsOptions));
+
+// parse requests of content-type - application/json
+app.use(bodyParser.json());
+
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
+
+//Importing Routes
+// const storyRoute = require('./routes/stories');
+// app.use(storyRoute);
+require('./routes/auth')(app);
+require('./routes/stories')(app);
 
 // * Initialize mongoose and start service
 mongoose
   .connect(process.env.DEV_MONGO_URI, {
     useNewUrlParser: true,
+    useFindAndModify: false,
     useUnifiedTopology: true,
   })
   .then(() => {
