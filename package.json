@@ -1,0 +1,38 @@
+{
+  "name": "readcountsystem",
+  "version": "1.0.0",
+  "description": "Simple Application where Stories can we displayed to Loggedin users and also show them the realtime users.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akhanish7/pratilipiInterview.git"
+  },
+  "keywords": [
+    "Read",
+    "count",
+    "system"
+  ],
+  "author": "AK Hanish",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akhanish7/pratilipiInterview/issues"
+  },
+  "homepage": "https://github.com/akhanish7/pratilipiInterview#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "helmet": "^4.1.0",
+    "mongoose": "^5.10.4",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.4",
+    "passport": "^0.4.1"
+  }
+}
