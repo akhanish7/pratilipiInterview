@@ -35,13 +35,18 @@ exports.getStory = (req, res, next) => {
   Stories.findOneAndUpdate(
     { _id: id },
     { $addToSet: { readUser: currentUserId } },
-
-    (err, doc) => {
+    { new: true },
+    (err, story) => {
       if (err) {
         res.status(404).send({ message: 'title not found' });
       }
-
-      console.log(doc);
+      let readCount = story.readUser.length;
+      res.status(200).json({
+        _id: story._id,
+        title: story.title,
+        content: story.content,
+        readCount: readCount,
+      });
     }
   );
 };

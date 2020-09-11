@@ -20,6 +20,9 @@ var corsOptions = {
   origin: 'http://localhost:7777',
 };
 
+const server = require('http').createServer(app);
+exports.io = require('socket.io')(server);
+
 app.use(cors(corsOptions));
 
 // parse requests of content-type - application/json
@@ -42,7 +45,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    app.listen(PORT, () => {
+    server.listen(PORT, () => {
       console.log('server listening');
     });
   })
