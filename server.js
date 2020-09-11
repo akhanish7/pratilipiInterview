@@ -9,6 +9,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const socket = require('./socket');
 const app = express();
 
 //Importing Enviroment Variables
@@ -41,8 +42,10 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    app.listen(PORT, () => {
-      console.log('server listening');
+    const server = app.listen(PORT);
+    const io = require('./socket').init(server);
+    io.on('connection', (socket) => {
+      console.log('Socket Connected');
     });
   })
   .catch((err) => {
