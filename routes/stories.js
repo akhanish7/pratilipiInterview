@@ -17,7 +17,7 @@ module.exports = function (app) {
   app.post('/poststory', keyVerify.verifyToken, storiesController.postStory);
 
   app.get(
-    'story/:id',
+    '/story/:id',
 
     keyVerify.verifyToken,
     storiesController.getStory
