@@ -20,9 +20,6 @@ var corsOptions = {
   origin: 'http://localhost:7777',
 };
 
-const server = require('http').createServer(app);
-exports.io = require('socket.io')(server);
-
 app.use(cors(corsOptions));
 
 // parse requests of content-type - application/json
@@ -32,8 +29,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //Importing Routes
-// const storyRoute = require('./routes/stories');
-// app.use(storyRoute);
+
 require('./routes/auth')(app);
 require('./routes/stories')(app);
 
@@ -45,7 +41,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    server.listen(PORT, () => {
+    app.listen(PORT, () => {
       console.log('server listening');
     });
   })

@@ -1,12 +1,3 @@
-// const express = require('express');
-// const Router = express.Router();
-// const verifyJwt = require('../controllers/auth/jwt');
-
-// const storiesController = require('../controllers/stories');
-// Router.post('/poststory', verifyJwt.verifyToken, storiesController.postStory);
-
-// module.exports = Router;
-
 /**
  * Project: Read Count System
  * Description: Read Count system for stories(Pratilipi Test Project)
@@ -26,7 +17,8 @@ module.exports = function (app) {
   app.post('/poststory', keyVerify.verifyToken, storiesController.postStory);
 
   app.get(
-    '/story/5f5a94fc1c2e7b3bcf2c84ed',
+    'story/:id',
+
     keyVerify.verifyToken,
     storiesController.getStory
   );

@@ -1,14 +1,18 @@
+/**
+ * Project: Read Count System
+ * Description: Read Count system for stories(Pratilipi Test Project)
+ * Author: AK Hanish <akhanish7@gmail.com>
+ */
+
 const Stories = require('../models/stories');
 const jwt = require('jsonwebtoken');
 const User = require('../models/users');
+
 exports.getAllStories = (req, res, next) => {
   Stories.find({})
     .select({ title: 1, _id: 1 })
     .then((stories) => {
-      // stories.map((story) => {
-      //   console.log(story.content);
-      // });
-      console.log(stories);
+      res.status(200).send(stories);
     });
 };
 
@@ -29,11 +33,11 @@ exports.postStory = (req, res, next) => {
 };
 
 exports.getStory = (req, res, next) => {
-  let id = '5f5a94fc1c2e7b3bcf2c84ed';
+  console.log(req.params.id);
   let token = req.header('x-access-token');
   let currentUserId = jwt.decode(token, process.env.JWT_SECRET_KEY).id;
   Stories.findOneAndUpdate(
-    { _id: id },
+    { _id: req.params.id },
     { $addToSet: { readUser: currentUserId } },
     { new: true },
     (err, story) => {
@@ -41,6 +45,7 @@ exports.getStory = (req, res, next) => {
         res.status(404).send({ message: 'title not found' });
       }
       let readCount = story.readUser.length;
+
       res.status(200).json({
         _id: story._id,
         title: story.title,

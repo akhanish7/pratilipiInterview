@@ -18,10 +18,10 @@ exports.signup = (req, res) => {
 
   user.save((err, user) => {
     if (err) {
-      res.status(500).send({ message: err });
+      res.status(500).json({ message: err });
       return;
     } else {
-      res.send({ message: 'User was registered successfully!' });
+      res.status(200).json({ message: 'User was registered successfully!' });
     }
   });
 };
@@ -31,18 +31,18 @@ exports.signin = (req, res) => {
     username: req.body.username,
   }).exec((err, user) => {
     if (err) {
-      res.status(500).send({ message: err });
+      res.status(500).json({ message: err });
       return;
     }
 
     if (!user) {
-      return res.status(404).send({ message: 'User Not found.' });
+      return res.status(404).json({ message: 'User Not found.' });
     }
 
     var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
 
     if (!passwordIsValid) {
-      return res.status(401).send({
+      return res.status(401).json({
         accessToken: null,
         message: 'Invalid Password!',
       });
@@ -52,7 +52,7 @@ exports.signin = (req, res) => {
       expiresIn: 86400,
     });
 
-    res.status(200).send({
+    res.status(200).json({
       id: user._id,
       username: user.username,
       email: user.email,
