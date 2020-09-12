@@ -18,7 +18,7 @@ require('dotenv').config();
 let PORT = process.env.DEV_APP_PORT;
 
 var corsOptions = {
-  origin: 'http://localhost:7777',
+  origin: 'http://localhost:4200',
 };
 
 app.use(cors(corsOptions));
@@ -44,9 +44,6 @@ mongoose
   .then(() => {
     const server = app.listen(PORT);
     const io = require('./socket').init(server);
-    io.on('connection', (socket) => {
-      console.log('Socket Connected');
-    });
   })
   .catch((err) => {
     console.log(err);

@@ -9,6 +9,7 @@ const controller = require('../controllers/auth/auth');
 const keyVerify = require('../controllers/auth/jwt');
 module.exports = function (app) {
   app.use(function (req, res, next) {
+    //Setting Header
     res.header(
       'Access-Control-Allow-Headers',
       'x-access-token, Origin, Content-Type, Accept'
@@ -16,6 +17,7 @@ module.exports = function (app) {
     next();
   });
 
+  //POST '/signup'
   app.post(
     '/signup',
     verifySignUp.checkDuplicateUsername,
@@ -23,5 +25,6 @@ module.exports = function (app) {
     controller.signup
   );
 
+  // POST /signin
   app.post('/signin', controller.signin);
 };
