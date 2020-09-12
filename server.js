@@ -11,7 +11,8 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const socket = require('./socket');
 const app = express();
-
+const compression = require('compression');
+const helmet = require('helmet');
 //Importing Enviroment Variables
 require('dotenv').config();
 
@@ -20,7 +21,8 @@ let PORT = process.env.DEV_APP_PORT;
 var corsOptions = {
   origin: 'http://localhost:4200',
 };
-
+app.use(compression()); //Compress all routes
+var helmet = require('helmet'); // Will protect from known vulnerabilities
 app.use(cors(corsOptions));
 
 // parse requests of content-type - application/json
