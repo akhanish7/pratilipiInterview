@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../../models/users');
 
 exports.verifyToken = (req, res, next) => {
-  let token = req.headers['x-access-token'];
+  let token = req.headers['x-access-key'];
   let secret = process.env.JWT_SECRET_KEY;
   if (!token) {
     return res.status(403).json({ message: 'No token provided!' });

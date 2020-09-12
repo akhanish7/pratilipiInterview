@@ -23,5 +23,5 @@ module.exports = function (app) {
     storiesController.getStory
   );
 
-  app.get('/story', storiesController.getAllStories);
+  app.get('/story', keyVerify.verifyToken, storiesController.getAllStories);
 };

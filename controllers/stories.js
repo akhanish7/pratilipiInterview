@@ -38,7 +38,7 @@ exports.postStory = (req, res, next) => {
 //GET story based on _id
 exports.getStory = (req, res, next) => {
   console.log(req.params.id);
-  let token = req.header('x-access-token');
+  let token = req.header('x-access-key');
   let currentUserId = jwt.decode(token, process.env.JWT_SECRET_KEY).id;
 
   Stories.findOneAndUpdate(
@@ -50,18 +50,22 @@ exports.getStory = (req, res, next) => {
         res.status(404).send({ message: 'title not found' });
       } else {
         let readCount = story.readUser.length;
-        io.getIO().sockets.on('connection', function (socket) {
-          activeUsers++;
-          io.getIO().emit('activeUsers', {
-            activeUsers: activeUsers,
+        io.getIO()
+          .of(`/${req.params.id}`)
+          .on('connection', function (socket) {
+            activeUsers++;
+            io.getIO().emit('activeUsers', {
+              activeUsers: activeUsers,
+            });
           });
-        });
-        io.getIO().sockets.on('disconnect', function () {
-          activeUsers--;
-          io.getIO().emit('activeUsers', {
-            activeUsers: activeUsers,
+        io.getIO()
+          .of('/' + req.params.id)
+          .on('disconnect', function () {
+            activeUsers--;
+            io.getIO().emit('activeUsers', {
+              activeUsers: activeUsers,
+            });
           });
-        });
         res.status(200).json({
           _id: story._id,
           title: story.title,
