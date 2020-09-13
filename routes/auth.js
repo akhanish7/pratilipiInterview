@@ -34,6 +34,10 @@ module.exports = function (app) {
   });
 
   //POST '/signup'
+
+  app.get('/', (req, res) => {
+    res.json({ message: 'Welcome to the BACKEND of RCS' });
+  });
   app.post(
     '/signup',
     verifySignUp.checkDuplicateUsername,
