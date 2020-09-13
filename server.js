@@ -22,7 +22,7 @@ var corsOptions = {
   origin: 'http://localhost:4200',
 };
 app.use(compression()); //Compress all routes
-var helmet = require('helmet'); // Will protect from known vulnerabilities
+app.use(helmet()); // Will protect from known vulnerabilities
 app.use(cors(corsOptions));
 
 // parse requests of content-type - application/json

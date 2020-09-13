@@ -28,6 +28,7 @@ exports.postStory = (req, res, next) => {
 
   story.save((err, user) => {
     if (err) {
+      console.log(err);
       res.status(500).send({ message: err });
       return;
     } else {
