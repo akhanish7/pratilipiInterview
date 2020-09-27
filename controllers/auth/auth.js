@@ -9,6 +9,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 let secret = process.env.JWT_SECRET_KEY;
 
+// Register new user
 exports.signup = (req, res) => {
   const user = new User({
     username: req.body.username,
@@ -25,7 +26,7 @@ exports.signup = (req, res) => {
     }
   });
 };
-
+//Login User
 exports.signin = (req, res) => {
   User.findOne({
     username: req.body.username,
@@ -34,24 +35,24 @@ exports.signin = (req, res) => {
       res.status(500).json({ message: err });
       return;
     }
-
+    //If user not Found
     if (!user) {
       return res.status(404).json({ message: 'User Not found.' });
     }
-
+    //Compare Password
     var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
-
+    //If Password is inValid
     if (!passwordIsValid) {
       return res.status(401).json({
         accessToken: null,
         message: 'Invalid Password!',
       });
     }
-
+    //Create Token
     var token = jwt.sign({ id: user.id }, secret, {
       expiresIn: 86400,
     });
-
+    // Send Response
     res.status(200).json({
       id: user._id,
       username: user.username,

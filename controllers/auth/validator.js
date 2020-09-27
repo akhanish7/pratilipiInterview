@@ -6,6 +6,7 @@
 
 const User = require('../../models/users');
 
+//To Check if user is not an existing user
 checkDuplicateUsername = (req, res, next) => {
   User.findOne({
     username: req.body.username,

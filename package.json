@@ -1,6 +1,9 @@
 {
   "name": "readcountsystem",
   "version": "1.0.0",
+  "engines": {
+    "node": "12.18.2"
+  },
   "description": "Simple Application where Stories can we displayed to Loggedin users and also show them the realtime users.",
   "main": "server.js",
   "scripts": {
@@ -31,7 +34,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "express-visit-counter": "^1.0.1",
-    "helmet": "^4.1.0",
+    "helmet": "^4.1.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.4",
     "morgan": "^1.10.0",
